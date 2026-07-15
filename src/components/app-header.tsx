@@ -13,8 +13,10 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Zap, LogOut, User, CreditCard, Settings } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useCredits } from "@/lib/credits-store";
 
 export function AppHeader({ title }: { title?: string }) {
+  const credits = useCredits();
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b bg-background/70 backdrop-blur-xl px-4">
       <SidebarTrigger />
@@ -22,7 +24,7 @@ export function AppHeader({ title }: { title?: string }) {
       <div className="ml-auto flex items-center gap-2">
         <Badge variant="secondary" className="gap-1 font-normal">
           <Zap className="h-3 w-3 text-primary" />
-          <span className="text-xs">432 credits</span>
+          <span className="text-xs">{credits} credits</span>
         </Badge>
         <ThemeToggle />
         <DropdownMenu>
