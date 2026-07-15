@@ -108,7 +108,8 @@ function CopilotPage() {
       </div>
     </div>
   );
-}
+
+
 
   return (
     <AppShell title="Copilot">
