@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { ArrowUp, Copy, Sparkles, Square, Pencil, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { creditsStore, useCredits } from "@/lib/credits-store";
 
 type Props = {
   mode?: "chat" | "email" | "meeting" | "planner" | "research";
@@ -35,6 +36,8 @@ export function AiPanel({
   const scrollRef = useRef<HTMLDivElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
 
+  const credits = useCredits();
+
   const { messages, sendMessage, status, stop, setMessages } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
@@ -44,6 +47,16 @@ export function AiPanel({
   });
 
   const isLoading = status === "submitted" || status === "streaming";
+
+  const send = (text: string) => {
+    if (creditsStore.get() <= 0) {
+      toast.error("Not enough credits. Upgrade to Pro");
+      return false;
+    }
+    sendMessage({ text });
+    creditsStore.decrement(1);
+    return true;
+  };
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -57,7 +70,10 @@ export function AiPanel({
   useEffect(() => {
     if (initialPrompt && autoSubmitKey) {
       setInput("");
-      sendMessage({ text: initialPrompt });
+      send(initialPrompt);
+      requestAnimationFrame(() =>
+        scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" }),
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoSubmitKey]);
@@ -65,8 +81,7 @@ export function AiPanel({
   const submit = () => {
     const text = input.trim();
     if (!text || isLoading) return;
-    sendMessage({ text });
-    setInput("");
+    if (send(text)) setInput("");
   };
 
   const copy = (text: string) => {
