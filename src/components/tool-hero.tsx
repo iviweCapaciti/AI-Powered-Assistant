@@ -1,15 +1,18 @@
 import { type LucideIcon, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function ToolHero({
   icon: Icon,
   title,
   subtitle,
   examples,
+  onExample,
 }: {
   icon: LucideIcon;
   title: string;
   subtitle: string;
   examples: string[];
+  onExample?: (text: string) => void;
 }) {
   return (
     <div className="pt-8 pb-2 text-center">
@@ -22,13 +25,18 @@ export function ToolHero({
       <p className="mt-2 text-muted-foreground max-w-lg mx-auto">{subtitle}</p>
       <div className="mt-6 grid gap-2 max-w-xl mx-auto text-left">
         {examples.map((e) => (
-          <div
+          <button
             key={e}
-            className="glass-card px-3 py-2.5 text-sm flex items-start gap-2 hover:border-primary transition-colors"
+            type="button"
+            onClick={() => onExample?.(e)}
+            className={cn(
+              "glass-card px-3 py-2.5 text-sm flex items-start gap-2 text-left w-full transition-all",
+              "hover:border-primary hover:-translate-y-0.5 hover:shadow-md cursor-pointer",
+            )}
           >
             <Sparkles className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
             <span>{e}</span>
-          </div>
+          </button>
         ))}
       </div>
     </div>
