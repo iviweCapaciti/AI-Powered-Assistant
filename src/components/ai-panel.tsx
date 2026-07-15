@@ -201,18 +201,19 @@ export function AiPanel({
               className="min-h-10 max-h-48 resize-none border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:border-0"
             />
             {isLoading ? (
-              <Button size="icon" variant="secondary" onClick={stop} aria-label="Stop">
-                <Square className="h-4 w-4" />
+              <Button variant="secondary" onClick={stop} aria-label="Stop">
+                <Square className="h-4 w-4 mr-1.5" />
+                Stop
               </Button>
             ) : (
               <Button
-                size="icon"
                 onClick={submit}
-                disabled={!input.trim()}
+                disabled={!input.trim() || credits <= 0}
                 className="gradient-brand text-white hover:opacity-90"
-                aria-label="Send"
+                aria-label="Generate"
               >
-                <ArrowUp className="h-4 w-4" />
+                <ArrowUp className="h-4 w-4 mr-1.5" />
+                Generate
               </Button>
             )}
           </div>
