@@ -9,6 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkspaceRouteImport } from './routes/workspace'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as BillingRouteImport } from './routes/billing'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsResearchRouteImport } from './routes/tools.research'
 import { Route as ToolsPlannerRouteImport } from './routes/tools.planner'
@@ -17,6 +22,31 @@ import { Route as ToolsEmailRouteImport } from './routes/tools.email'
 import { Route as ToolsChatRouteImport } from './routes/tools.chat'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const WorkspaceRoute = WorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillingRoute = BillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,6 +85,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/billing': typeof BillingRoute
+  '/dashboard': typeof DashboardRoute
+  '/settings': typeof SettingsRoute
+  '/workspace': typeof WorkspaceRoute
   '/api/chat': typeof ApiChatRoute
   '/tools/chat': typeof ToolsChatRoute
   '/tools/email': typeof ToolsEmailRoute
@@ -64,6 +99,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/billing': typeof BillingRoute
+  '/dashboard': typeof DashboardRoute
+  '/settings': typeof SettingsRoute
+  '/workspace': typeof WorkspaceRoute
   '/api/chat': typeof ApiChatRoute
   '/tools/chat': typeof ToolsChatRoute
   '/tools/email': typeof ToolsEmailRoute
@@ -74,6 +114,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/billing': typeof BillingRoute
+  '/dashboard': typeof DashboardRoute
+  '/settings': typeof SettingsRoute
+  '/workspace': typeof WorkspaceRoute
   '/api/chat': typeof ApiChatRoute
   '/tools/chat': typeof ToolsChatRoute
   '/tools/email': typeof ToolsEmailRoute
@@ -85,6 +130,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/analytics'
+    | '/billing'
+    | '/dashboard'
+    | '/settings'
+    | '/workspace'
     | '/api/chat'
     | '/tools/chat'
     | '/tools/email'
@@ -94,6 +144,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/analytics'
+    | '/billing'
+    | '/dashboard'
+    | '/settings'
+    | '/workspace'
     | '/api/chat'
     | '/tools/chat'
     | '/tools/email'
@@ -103,6 +158,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/analytics'
+    | '/billing'
+    | '/dashboard'
+    | '/settings'
+    | '/workspace'
     | '/api/chat'
     | '/tools/chat'
     | '/tools/email'
@@ -113,6 +173,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  BillingRoute: typeof BillingRoute
+  DashboardRoute: typeof DashboardRoute
+  SettingsRoute: typeof SettingsRoute
+  WorkspaceRoute: typeof WorkspaceRoute
   ApiChatRoute: typeof ApiChatRoute
   ToolsChatRoute: typeof ToolsChatRoute
   ToolsEmailRoute: typeof ToolsEmailRoute
@@ -123,6 +188,41 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workspace': {
+      id: '/workspace'
+      path: '/workspace'
+      fullPath: '/workspace'
+      preLoaderRoute: typeof WorkspaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/billing': {
+      id: '/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -177,6 +277,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  BillingRoute: BillingRoute,
+  DashboardRoute: DashboardRoute,
+  SettingsRoute: SettingsRoute,
+  WorkspaceRoute: WorkspaceRoute,
   ApiChatRoute: ApiChatRoute,
   ToolsChatRoute: ToolsChatRoute,
   ToolsEmailRoute: ToolsEmailRoute,
