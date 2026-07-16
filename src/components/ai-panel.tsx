@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { ArrowUp, Copy, Sparkles, Square, Pencil, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { creditsStore, useCredits } from "@/lib/credits-store";
+import { Markdown, stripMarkdown } from "@/components/markdown";
 
 type Props = {
   mode?: "chat" | "email" | "meeting" | "planner" | "research";
@@ -85,7 +86,7 @@ export function AiPanel({
   };
 
   const copy = (text: string) => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(stripMarkdown(text));
     toast.success("Copied to clipboard");
   };
 
@@ -133,8 +134,14 @@ export function AiPanel({
                         onChange={(e) => setEditValue(e.target.value)}
                         className="min-w-[280px] md:min-w-[500px] min-h-32"
                       />
+                    ) : text ? (
+                      isUser ? (
+                        text
+                      ) : (
+                        <Markdown>{text}</Markdown>
+                      )
                     ) : (
-                      text || <Skeleton className="h-4 w-40" />
+                      <Skeleton className="h-4 w-40" />
                     )}
                   </div>
                   {!isUser && text && (
