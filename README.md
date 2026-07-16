@@ -8,13 +8,17 @@ Built for modern teams who want to save time and ship faster.
 ## ✨ Features
 
 - **AI Copilot Chat**
-  Ask anything. Get instant drafts, summaries, plans, and research.
+  Ask anything. Get instant drafts, summaries, plans, and research. Responses render clean with no markdown symbols.
 - **Smart Templates**
- 1-click workflows for Emails, Meeting Notes, Weekly Planning, and Research.
+  Create, save, and share prompt templates with your team. 1-click workflows for Emails, Meeting Notes, Weekly Planning, and Research.
 - **Team Collaboration**
-  Shared workspaces, shared chat history, and shared prompt templates.
+  Multiple workspaces per user. Invite team members, assign roles: Owner, Admin, Member.
+  **Shared Chats**: Continue team AI conversations together.
+  **Shared Prompt Templates**: Reuse proven prompts across your workspace.
+- **Workspace Management**
+  Create new workspaces, rename them, and switch between them. No hardcoded workspace names.
 - **Integrations**
-  Connect Gmail, Slack, Google Calendar, and Notion in one click.
+  Connect Gmail, Slack, Google Calendar, and Notion in one click. *Coming soon*
 - **Analytics Dashboard**
   Track AI credits used and time saved by your team.
 - **Enterprise Ready**
@@ -22,10 +26,10 @@ Built for modern teams who want to save time and ship faster.
 
 ## 🚀 Tech Stack
 
-- **Frontend**: React, TailwindCSS, Framer Motion
-- **Backend**: Node.js, Express
-- **AI**: OpenAI / Anthropic API
-- **Auth**: Clerk / Google OAuth
+- **Frontend**: Next.js 14, TypeScript, TailwindCSS, shadcn/ui, Framer Motion, react-markdown
+- **Backend**: Next.js API Routes, Node.js
+- **AI**: OpenAI GPT-4o API
+- **Auth**: NextAuth - Google + Email/Password
 - **Database**: PostgreSQL + Prisma
 - **Payments**: Stripe
 - **Hosting**: Vercel
@@ -34,4 +38,5 @@ Built for modern teams who want to save time and ship faster.
 
 ### 1. Clone the repo
 ```bash
-git clone https:
+git clone https://github.com/yourusername/neptune.git
+cd neptune
