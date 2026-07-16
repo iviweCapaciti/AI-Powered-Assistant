@@ -17,6 +17,15 @@ function ChatTool() {
     setPrompt(p);
     setKey(`${Date.now()}`);
   };
+  // Prefill from a template selected in the workspace page
+  if (typeof window !== "undefined") {
+    const pre = sessionStorage.getItem("neptune.prefillPrompt");
+    if (pre && !key) {
+      sessionStorage.removeItem("neptune.prefillPrompt");
+      queueMicrotask(() => trigger(pre));
+    }
+  }
+
 
   return (
     <AppShell title="AI Chatbot">
