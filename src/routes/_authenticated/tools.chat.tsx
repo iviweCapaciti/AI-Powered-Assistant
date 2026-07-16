@@ -5,7 +5,7 @@ import { AiPanel } from "@/components/ai-panel";
 import { MessageSquare } from "lucide-react";
 import { ToolHero } from "@/components/tool-hero";
 
-export const Route = createFileRoute("/tools/chat")({
+export const Route = createFileRoute("/_authenticated/tools/chat")({
   head: () => ({ meta: [{ title: "AI Chatbot — Neptune" }] }),
   component: ChatTool,
 });

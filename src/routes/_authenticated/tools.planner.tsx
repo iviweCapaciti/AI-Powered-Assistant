@@ -5,7 +5,7 @@ import { AiPanel } from "@/components/ai-panel";
 import { ListChecks } from "lucide-react";
 import { ToolHero } from "@/components/tool-hero";
 
-export const Route = createFileRoute("/tools/planner")({
+export const Route = createFileRoute("/_authenticated/tools/planner")({
   head: () => ({ meta: [{ title: "AI Task Planner — Neptune" }] }),
   component: PlannerTool,
 });
