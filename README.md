@@ -38,5 +38,4 @@ Built for modern teams who want to save time and ship faster.
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/neptune.git
-cd neptune
+git clone https:https://github.com/iviweCapaciti/AI-Powered-Assistant
