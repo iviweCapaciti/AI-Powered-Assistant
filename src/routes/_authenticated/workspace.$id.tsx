@@ -286,7 +286,7 @@ function WorkspacePage() {
                 {chatQuery.data!.map((c) => (
                   <button
                     key={c.id}
-                    onClick={() => navigate({ to: "/workspace/$id/chat/$chatId", params: { id, chatId: c.id } })}
+                    onClick={() => toast.info("Shared chat viewer coming soon")}
                     className="w-full glass-card p-4 text-left hover:border-primary/40 transition"
                   >
                     <p className="font-medium text-sm truncate">{c.title}</p>
