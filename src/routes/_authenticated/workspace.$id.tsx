@@ -182,7 +182,7 @@ function WorkspacePage() {
         <div className="glass-card divide-y">
           {wsQuery.data?.members.map((m) => (
             <div key={m.userId} className="flex items-center gap-3 p-4">
-              <Avatar className="h-9 w-9"><AvatarFallback>{m.name.split(" ").map((n) => n[0]).slice(0, 2).join("")}</AvatarFallback></Avatar>
+              <Avatar className="h-9 w-9"><AvatarFallback>{m.name.split(" ").map((n: string) => n[0]).slice(0, 2).join("")}</AvatarFallback></Avatar>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{m.name}</p>
                 <p className="text-xs text-muted-foreground truncate">{m.email}</p>
