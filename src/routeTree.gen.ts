@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -21,6 +22,10 @@ import { Route as AuthenticatedToolsMeetingRouteImport } from './routes/_authent
 import { Route as AuthenticatedToolsEmailRouteImport } from './routes/_authenticated/tools.email'
 import { Route as AuthenticatedToolsChatRouteImport } from './routes/_authenticated/tools.chat'
 
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -32,52 +37,52 @@ const ApiChatRoute = ApiChatRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
-  id: '/_authenticated/settings',
+  id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/_authenticated/dashboard',
+  id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedBillingRoute = AuthenticatedBillingRouteImport.update({
-  id: '/_authenticated/billing',
+  id: '/billing',
   path: '/billing',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
-  id: '/_authenticated/analytics',
+  id: '/analytics',
   path: '/analytics',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedToolsResearchRoute =
   AuthenticatedToolsResearchRouteImport.update({
-    id: '/_authenticated/tools/research',
+    id: '/tools/research',
     path: '/tools/research',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedToolsPlannerRoute =
   AuthenticatedToolsPlannerRouteImport.update({
-    id: '/_authenticated/tools/planner',
+    id: '/tools/planner',
     path: '/tools/planner',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedToolsMeetingRoute =
   AuthenticatedToolsMeetingRouteImport.update({
-    id: '/_authenticated/tools/meeting',
+    id: '/tools/meeting',
     path: '/tools/meeting',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedToolsEmailRoute = AuthenticatedToolsEmailRouteImport.update({
-  id: '/_authenticated/tools/email',
+  id: '/tools/email',
   path: '/tools/email',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedToolsChatRoute = AuthenticatedToolsChatRouteImport.update({
-  id: '/_authenticated/tools/chat',
+  id: '/tools/chat',
   path: '/tools/chat',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -109,6 +114,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
   '/_authenticated/billing': typeof AuthenticatedBillingRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
@@ -150,6 +156,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/_authenticated/analytics'
     | '/_authenticated/billing'
     | '/_authenticated/dashboard'
@@ -164,20 +171,19 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
-  AuthenticatedBillingRoute: typeof AuthenticatedBillingRoute
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
-  AuthenticatedToolsChatRoute: typeof AuthenticatedToolsChatRoute
-  AuthenticatedToolsEmailRoute: typeof AuthenticatedToolsEmailRoute
-  AuthenticatedToolsMeetingRoute: typeof AuthenticatedToolsMeetingRoute
-  AuthenticatedToolsPlannerRoute: typeof AuthenticatedToolsPlannerRoute
-  AuthenticatedToolsResearchRoute: typeof AuthenticatedToolsResearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,79 +203,98 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/billing': {
       id: '/_authenticated/billing'
       path: '/billing'
       fullPath: '/billing'
       preLoaderRoute: typeof AuthenticatedBillingRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/analytics': {
       id: '/_authenticated/analytics'
       path: '/analytics'
       fullPath: '/analytics'
       preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tools/research': {
       id: '/_authenticated/tools/research'
       path: '/tools/research'
       fullPath: '/tools/research'
       preLoaderRoute: typeof AuthenticatedToolsResearchRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tools/planner': {
       id: '/_authenticated/tools/planner'
       path: '/tools/planner'
       fullPath: '/tools/planner'
       preLoaderRoute: typeof AuthenticatedToolsPlannerRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tools/meeting': {
       id: '/_authenticated/tools/meeting'
       path: '/tools/meeting'
       fullPath: '/tools/meeting'
       preLoaderRoute: typeof AuthenticatedToolsMeetingRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tools/email': {
       id: '/_authenticated/tools/email'
       path: '/tools/email'
       fullPath: '/tools/email'
       preLoaderRoute: typeof AuthenticatedToolsEmailRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tools/chat': {
       id: '/_authenticated/tools/chat'
       path: '/tools/chat'
       fullPath: '/tools/chat'
       preLoaderRoute: typeof AuthenticatedToolsChatRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
+  AuthenticatedBillingRoute: typeof AuthenticatedBillingRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedToolsChatRoute: typeof AuthenticatedToolsChatRoute
+  AuthenticatedToolsEmailRoute: typeof AuthenticatedToolsEmailRoute
+  AuthenticatedToolsMeetingRoute: typeof AuthenticatedToolsMeetingRoute
+  AuthenticatedToolsPlannerRoute: typeof AuthenticatedToolsPlannerRoute
+  AuthenticatedToolsResearchRoute: typeof AuthenticatedToolsResearchRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
   AuthenticatedBillingRoute: AuthenticatedBillingRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
-  ApiChatRoute: ApiChatRoute,
   AuthenticatedToolsChatRoute: AuthenticatedToolsChatRoute,
   AuthenticatedToolsEmailRoute: AuthenticatedToolsEmailRoute,
   AuthenticatedToolsMeetingRoute: AuthenticatedToolsMeetingRoute,
   AuthenticatedToolsPlannerRoute: AuthenticatedToolsPlannerRoute,
   AuthenticatedToolsResearchRoute: AuthenticatedToolsResearchRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
