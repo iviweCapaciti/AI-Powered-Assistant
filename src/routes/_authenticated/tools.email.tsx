@@ -5,7 +5,7 @@ import { AiPanel } from "@/components/ai-panel";
 import { Mail } from "lucide-react";
 import { ToolHero } from "@/components/tool-hero";
 
-export const Route = createFileRoute("/tools/email")({
+export const Route = createFileRoute("/_authenticated/tools/email")({
   head: () => ({ meta: [{ title: "Smart Email Generator — Neptune" }] }),
   component: EmailTool,
 });

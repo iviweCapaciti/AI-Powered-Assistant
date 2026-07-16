@@ -9,42 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WorkspaceRouteImport } from './routes/workspace'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as BillingRouteImport } from './routes/billing'
-import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ToolsResearchRouteImport } from './routes/tools.research'
-import { Route as ToolsPlannerRouteImport } from './routes/tools.planner'
-import { Route as ToolsMeetingRouteImport } from './routes/tools.meeting'
-import { Route as ToolsEmailRouteImport } from './routes/tools.email'
-import { Route as ToolsChatRouteImport } from './routes/tools.chat'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedBillingRouteImport } from './routes/_authenticated/billing'
+import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
+import { Route as AuthenticatedWorkspaceIndexRouteImport } from './routes/_authenticated/workspace.index'
+import { Route as AuthenticatedWorkspaceIdRouteImport } from './routes/_authenticated/workspace.$id'
+import { Route as AuthenticatedToolsResearchRouteImport } from './routes/_authenticated/tools.research'
+import { Route as AuthenticatedToolsPlannerRouteImport } from './routes/_authenticated/tools.planner'
+import { Route as AuthenticatedToolsMeetingRouteImport } from './routes/_authenticated/tools.meeting'
+import { Route as AuthenticatedToolsEmailRouteImport } from './routes/_authenticated/tools.email'
+import { Route as AuthenticatedToolsChatRouteImport } from './routes/_authenticated/tools.chat'
 
-const WorkspaceRoute = WorkspaceRouteImport.update({
-  id: '/workspace',
-  path: '/workspace',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BillingRoute = BillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AnalyticsRoute = AnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -52,175 +39,195 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ToolsResearchRoute = ToolsResearchRouteImport.update({
-  id: '/tools/research',
-  path: '/tools/research',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ToolsPlannerRoute = ToolsPlannerRouteImport.update({
-  id: '/tools/planner',
-  path: '/tools/planner',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ToolsMeetingRoute = ToolsMeetingRouteImport.update({
-  id: '/tools/meeting',
-  path: '/tools/meeting',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ToolsEmailRoute = ToolsEmailRouteImport.update({
-  id: '/tools/email',
-  path: '/tools/email',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ToolsChatRoute = ToolsChatRouteImport.update({
-  id: '/tools/chat',
-  path: '/tools/chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBillingRoute = AuthenticatedBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedWorkspaceIndexRoute =
+  AuthenticatedWorkspaceIndexRouteImport.update({
+    id: '/workspace/',
+    path: '/workspace/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedWorkspaceIdRoute =
+  AuthenticatedWorkspaceIdRouteImport.update({
+    id: '/workspace/$id',
+    path: '/workspace/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedToolsResearchRoute =
+  AuthenticatedToolsResearchRouteImport.update({
+    id: '/tools/research',
+    path: '/tools/research',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedToolsPlannerRoute =
+  AuthenticatedToolsPlannerRouteImport.update({
+    id: '/tools/planner',
+    path: '/tools/planner',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedToolsMeetingRoute =
+  AuthenticatedToolsMeetingRouteImport.update({
+    id: '/tools/meeting',
+    path: '/tools/meeting',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedToolsEmailRoute = AuthenticatedToolsEmailRouteImport.update({
+  id: '/tools/email',
+  path: '/tools/email',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedToolsChatRoute = AuthenticatedToolsChatRouteImport.update({
+  id: '/tools/chat',
+  path: '/tools/chat',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/billing': typeof BillingRoute
-  '/dashboard': typeof DashboardRoute
-  '/settings': typeof SettingsRoute
-  '/workspace': typeof WorkspaceRoute
+  '/auth': typeof AuthRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/billing': typeof AuthenticatedBillingRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
-  '/tools/chat': typeof ToolsChatRoute
-  '/tools/email': typeof ToolsEmailRoute
-  '/tools/meeting': typeof ToolsMeetingRoute
-  '/tools/planner': typeof ToolsPlannerRoute
-  '/tools/research': typeof ToolsResearchRoute
+  '/tools/chat': typeof AuthenticatedToolsChatRoute
+  '/tools/email': typeof AuthenticatedToolsEmailRoute
+  '/tools/meeting': typeof AuthenticatedToolsMeetingRoute
+  '/tools/planner': typeof AuthenticatedToolsPlannerRoute
+  '/tools/research': typeof AuthenticatedToolsResearchRoute
+  '/workspace/$id': typeof AuthenticatedWorkspaceIdRoute
+  '/workspace/': typeof AuthenticatedWorkspaceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/billing': typeof BillingRoute
-  '/dashboard': typeof DashboardRoute
-  '/settings': typeof SettingsRoute
-  '/workspace': typeof WorkspaceRoute
+  '/auth': typeof AuthRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/billing': typeof AuthenticatedBillingRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
-  '/tools/chat': typeof ToolsChatRoute
-  '/tools/email': typeof ToolsEmailRoute
-  '/tools/meeting': typeof ToolsMeetingRoute
-  '/tools/planner': typeof ToolsPlannerRoute
-  '/tools/research': typeof ToolsResearchRoute
+  '/tools/chat': typeof AuthenticatedToolsChatRoute
+  '/tools/email': typeof AuthenticatedToolsEmailRoute
+  '/tools/meeting': typeof AuthenticatedToolsMeetingRoute
+  '/tools/planner': typeof AuthenticatedToolsPlannerRoute
+  '/tools/research': typeof AuthenticatedToolsResearchRoute
+  '/workspace/$id': typeof AuthenticatedWorkspaceIdRoute
+  '/workspace': typeof AuthenticatedWorkspaceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/billing': typeof BillingRoute
-  '/dashboard': typeof DashboardRoute
-  '/settings': typeof SettingsRoute
-  '/workspace': typeof WorkspaceRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
+  '/_authenticated/billing': typeof AuthenticatedBillingRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
-  '/tools/chat': typeof ToolsChatRoute
-  '/tools/email': typeof ToolsEmailRoute
-  '/tools/meeting': typeof ToolsMeetingRoute
-  '/tools/planner': typeof ToolsPlannerRoute
-  '/tools/research': typeof ToolsResearchRoute
+  '/_authenticated/tools/chat': typeof AuthenticatedToolsChatRoute
+  '/_authenticated/tools/email': typeof AuthenticatedToolsEmailRoute
+  '/_authenticated/tools/meeting': typeof AuthenticatedToolsMeetingRoute
+  '/_authenticated/tools/planner': typeof AuthenticatedToolsPlannerRoute
+  '/_authenticated/tools/research': typeof AuthenticatedToolsResearchRoute
+  '/_authenticated/workspace/$id': typeof AuthenticatedWorkspaceIdRoute
+  '/_authenticated/workspace/': typeof AuthenticatedWorkspaceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/analytics'
     | '/billing'
     | '/dashboard'
     | '/settings'
-    | '/workspace'
     | '/api/chat'
     | '/tools/chat'
     | '/tools/email'
     | '/tools/meeting'
     | '/tools/planner'
     | '/tools/research'
+    | '/workspace/$id'
+    | '/workspace/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/analytics'
     | '/billing'
     | '/dashboard'
     | '/settings'
-    | '/workspace'
     | '/api/chat'
     | '/tools/chat'
     | '/tools/email'
     | '/tools/meeting'
     | '/tools/planner'
     | '/tools/research'
+    | '/workspace/$id'
+    | '/workspace'
   id:
     | '__root__'
     | '/'
-    | '/analytics'
-    | '/billing'
-    | '/dashboard'
-    | '/settings'
-    | '/workspace'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/analytics'
+    | '/_authenticated/billing'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/settings'
     | '/api/chat'
-    | '/tools/chat'
-    | '/tools/email'
-    | '/tools/meeting'
-    | '/tools/planner'
-    | '/tools/research'
+    | '/_authenticated/tools/chat'
+    | '/_authenticated/tools/email'
+    | '/_authenticated/tools/meeting'
+    | '/_authenticated/tools/planner'
+    | '/_authenticated/tools/research'
+    | '/_authenticated/workspace/$id'
+    | '/_authenticated/workspace/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AnalyticsRoute: typeof AnalyticsRoute
-  BillingRoute: typeof BillingRoute
-  DashboardRoute: typeof DashboardRoute
-  SettingsRoute: typeof SettingsRoute
-  WorkspaceRoute: typeof WorkspaceRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ApiChatRoute: typeof ApiChatRoute
-  ToolsChatRoute: typeof ToolsChatRoute
-  ToolsEmailRoute: typeof ToolsEmailRoute
-  ToolsMeetingRoute: typeof ToolsMeetingRoute
-  ToolsPlannerRoute: typeof ToolsPlannerRoute
-  ToolsResearchRoute: typeof ToolsResearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/workspace': {
-      id: '/workspace'
-      path: '/workspace'
-      fullPath: '/workspace'
-      preLoaderRoute: typeof WorkspaceRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/billing': {
-      id: '/billing'
-      path: '/billing'
-      fullPath: '/billing'
-      preLoaderRoute: typeof BillingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/analytics': {
-      id: '/analytics'
-      path: '/analytics'
-      fullPath: '/analytics'
-      preLoaderRoute: typeof AnalyticsRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -230,41 +237,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tools/research': {
-      id: '/tools/research'
-      path: '/tools/research'
-      fullPath: '/tools/research'
-      preLoaderRoute: typeof ToolsResearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tools/planner': {
-      id: '/tools/planner'
-      path: '/tools/planner'
-      fullPath: '/tools/planner'
-      preLoaderRoute: typeof ToolsPlannerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tools/meeting': {
-      id: '/tools/meeting'
-      path: '/tools/meeting'
-      fullPath: '/tools/meeting'
-      preLoaderRoute: typeof ToolsMeetingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tools/email': {
-      id: '/tools/email'
-      path: '/tools/email'
-      fullPath: '/tools/email'
-      preLoaderRoute: typeof ToolsEmailRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tools/chat': {
-      id: '/tools/chat'
-      path: '/tools/chat'
-      fullPath: '/tools/chat'
-      preLoaderRoute: typeof ToolsChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -272,22 +244,122 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/billing': {
+      id: '/_authenticated/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof AuthenticatedBillingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/workspace/': {
+      id: '/_authenticated/workspace/'
+      path: '/workspace'
+      fullPath: '/workspace/'
+      preLoaderRoute: typeof AuthenticatedWorkspaceIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/workspace/$id': {
+      id: '/_authenticated/workspace/$id'
+      path: '/workspace/$id'
+      fullPath: '/workspace/$id'
+      preLoaderRoute: typeof AuthenticatedWorkspaceIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tools/research': {
+      id: '/_authenticated/tools/research'
+      path: '/tools/research'
+      fullPath: '/tools/research'
+      preLoaderRoute: typeof AuthenticatedToolsResearchRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tools/planner': {
+      id: '/_authenticated/tools/planner'
+      path: '/tools/planner'
+      fullPath: '/tools/planner'
+      preLoaderRoute: typeof AuthenticatedToolsPlannerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tools/meeting': {
+      id: '/_authenticated/tools/meeting'
+      path: '/tools/meeting'
+      fullPath: '/tools/meeting'
+      preLoaderRoute: typeof AuthenticatedToolsMeetingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tools/email': {
+      id: '/_authenticated/tools/email'
+      path: '/tools/email'
+      fullPath: '/tools/email'
+      preLoaderRoute: typeof AuthenticatedToolsEmailRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tools/chat': {
+      id: '/_authenticated/tools/chat'
+      path: '/tools/chat'
+      fullPath: '/tools/chat'
+      preLoaderRoute: typeof AuthenticatedToolsChatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
+  AuthenticatedBillingRoute: typeof AuthenticatedBillingRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedToolsChatRoute: typeof AuthenticatedToolsChatRoute
+  AuthenticatedToolsEmailRoute: typeof AuthenticatedToolsEmailRoute
+  AuthenticatedToolsMeetingRoute: typeof AuthenticatedToolsMeetingRoute
+  AuthenticatedToolsPlannerRoute: typeof AuthenticatedToolsPlannerRoute
+  AuthenticatedToolsResearchRoute: typeof AuthenticatedToolsResearchRoute
+  AuthenticatedWorkspaceIdRoute: typeof AuthenticatedWorkspaceIdRoute
+  AuthenticatedWorkspaceIndexRoute: typeof AuthenticatedWorkspaceIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
+  AuthenticatedBillingRoute: AuthenticatedBillingRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedToolsChatRoute: AuthenticatedToolsChatRoute,
+  AuthenticatedToolsEmailRoute: AuthenticatedToolsEmailRoute,
+  AuthenticatedToolsMeetingRoute: AuthenticatedToolsMeetingRoute,
+  AuthenticatedToolsPlannerRoute: AuthenticatedToolsPlannerRoute,
+  AuthenticatedToolsResearchRoute: AuthenticatedToolsResearchRoute,
+  AuthenticatedWorkspaceIdRoute: AuthenticatedWorkspaceIdRoute,
+  AuthenticatedWorkspaceIndexRoute: AuthenticatedWorkspaceIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AnalyticsRoute: AnalyticsRoute,
-  BillingRoute: BillingRoute,
-  DashboardRoute: DashboardRoute,
-  SettingsRoute: SettingsRoute,
-  WorkspaceRoute: WorkspaceRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ApiChatRoute: ApiChatRoute,
-  ToolsChatRoute: ToolsChatRoute,
-  ToolsEmailRoute: ToolsEmailRoute,
-  ToolsMeetingRoute: ToolsMeetingRoute,
-  ToolsPlannerRoute: ToolsPlannerRoute,
-  ToolsResearchRoute: ToolsResearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -5,7 +5,7 @@ import { AiPanel } from "@/components/ai-panel";
 import { FileText } from "lucide-react";
 import { ToolHero } from "@/components/tool-hero";
 
-export const Route = createFileRoute("/tools/meeting")({
+export const Route = createFileRoute("/_authenticated/tools/meeting")({
   head: () => ({ meta: [{ title: "Meeting Notes Summarizer — Neptune" }] }),
   component: MeetingTool,
 });

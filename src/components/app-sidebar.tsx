@@ -7,12 +7,14 @@ import {
   MessageSquare,
   Search,
   Settings,
-  Sparkles,
   Users,
   Mail,
   ListChecks,
 } from "lucide-react";
 import { NeptuneLogo } from "@/components/neptune-logo";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { listRecentActivity } from "@/lib/workspace.functions";
 import {
   Sidebar,
   SidebarContent,
@@ -28,7 +30,6 @@ import {
 } from "@/components/ui/sidebar";
 
 const workspace = [
-  { title: "Copilot", url: "/", icon: Sparkles },
   { title: "Dashboard", url: "/dashboard", icon: Home },
 ];
 
@@ -45,12 +46,6 @@ const team = [
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "Billing", url: "/billing", icon: CreditCard },
   { title: "Settings", url: "/settings", icon: Settings },
-];
-
-const recent = [
-  "Q4 marketing plan",
-  "Follow-up: Chulumanco",
-  "Perfume trends 2026",
 ];
 
 export function AppSidebar() {
@@ -104,21 +99,10 @@ export function AppSidebar() {
         {renderGroup("AI Tools", tools)}
         {renderGroup("Team", team)}
 
-        {!collapsed && (
-          <SidebarGroup>
-            <SidebarGroupLabel>Recent Activity</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <ul className="space-y-1 px-2 text-xs text-muted-foreground">
-                {recent.map((r) => (
-                  <li key={r} className="truncate rounded-md px-2 py-1.5 hover:bg-sidebar-accent transition-colors cursor-pointer">
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
+        {!collapsed && <RecentActivity />}
       </SidebarContent>
+
+
 
       <SidebarFooter>
         {!collapsed ? (
@@ -135,5 +119,31 @@ export function AppSidebar() {
         ) : null}
       </SidebarFooter>
     </Sidebar>
+  );
+}
+
+function RecentActivity() {
+  const fn = useServerFn(listRecentActivity);
+  const { data } = useQuery({ queryKey: ["recent-activity"], queryFn: () => fn(), staleTime: 15_000 });
+  const items = (data ?? []) as Array<{ id: string; title: string; tool: string }>;
+  return (
+    <SidebarGroup>
+      <SidebarGroupLabel>Recent Activity</SidebarGroupLabel>
+      <SidebarGroupContent>
+        {items.length === 0 ? (
+          <p className="px-3 py-2 text-[11px] text-muted-foreground leading-relaxed">
+            No recent activity yet. Start by using Email Generator or Meeting Notes.
+          </p>
+        ) : (
+          <ul className="space-y-1 px-2 text-xs text-muted-foreground">
+            {items.slice(0, 5).map((r) => (
+              <li key={r.id} className="truncate rounded-md px-2 py-1.5 hover:bg-sidebar-accent transition-colors cursor-pointer">
+                {r.title}
+              </li>
+            ))}
+          </ul>
+        )}
+      </SidebarGroupContent>
+    </SidebarGroup>
   );
 }

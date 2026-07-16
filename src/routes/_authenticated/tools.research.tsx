@@ -5,7 +5,7 @@ import { AiPanel } from "@/components/ai-panel";
 import { Search } from "lucide-react";
 import { ToolHero } from "@/components/tool-hero";
 
-export const Route = createFileRoute("/tools/research")({
+export const Route = createFileRoute("/_authenticated/tools/research")({
   head: () => ({ meta: [{ title: "AI Research Assistant — Neptune" }] }),
   component: ResearchTool,
 });

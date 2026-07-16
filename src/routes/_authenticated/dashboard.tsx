@@ -3,7 +3,7 @@ import { AppShell } from "@/components/app-shell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, FileText, ListChecks, Search, MessageSquare, TrendingUp, Zap, Clock } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — Neptune" }] }),
   component: Dashboard,
 });

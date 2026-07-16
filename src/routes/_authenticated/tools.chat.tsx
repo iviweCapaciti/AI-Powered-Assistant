@@ -5,7 +5,7 @@ import { AiPanel } from "@/components/ai-panel";
 import { MessageSquare } from "lucide-react";
 import { ToolHero } from "@/components/tool-hero";
 
-export const Route = createFileRoute("/tools/chat")({
+export const Route = createFileRoute("/_authenticated/tools/chat")({
   head: () => ({ meta: [{ title: "AI Chatbot — Neptune" }] }),
   component: ChatTool,
 });
@@ -17,6 +17,15 @@ function ChatTool() {
     setPrompt(p);
     setKey(`${Date.now()}`);
   };
+  // Prefill from a template selected in the workspace page
+  if (typeof window !== "undefined") {
+    const pre = sessionStorage.getItem("neptune.prefillPrompt");
+    if (pre && !key) {
+      sessionStorage.removeItem("neptune.prefillPrompt");
+      queueMicrotask(() => trigger(pre));
+    }
+  }
+
 
   return (
     <AppShell title="AI Chatbot">
