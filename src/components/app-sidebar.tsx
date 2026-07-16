@@ -99,21 +99,10 @@ export function AppSidebar() {
         {renderGroup("AI Tools", tools)}
         {renderGroup("Team", team)}
 
-        {!collapsed && (
-          <SidebarGroup>
-            <SidebarGroupLabel>Recent Activity</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <ul className="space-y-1 px-2 text-xs text-muted-foreground">
-                {recent.map((r) => (
-                  <li key={r} className="truncate rounded-md px-2 py-1.5 hover:bg-sidebar-accent transition-colors cursor-pointer">
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
+        {!collapsed && <RecentActivity />}
       </SidebarContent>
+
+
 
       <SidebarFooter>
         {!collapsed ? (
