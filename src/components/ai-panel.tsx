@@ -134,8 +134,14 @@ export function AiPanel({
                         onChange={(e) => setEditValue(e.target.value)}
                         className="min-w-[280px] md:min-w-[500px] min-h-32"
                       />
+                    ) : text ? (
+                      isUser ? (
+                        text
+                      ) : (
+                        <Markdown>{text}</Markdown>
+                      )
                     ) : (
-                      text || <Skeleton className="h-4 w-40" />
+                      <Skeleton className="h-4 w-40" />
                     )}
                   </div>
                   {!isUser && text && (
