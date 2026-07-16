@@ -1,126 +1,87 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { AppShell } from "@/components/app-shell";
-import { AiPanel } from "@/components/ai-panel";
-import { Mail, FileText, BarChart3, Search, Sparkles, Clock } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { NeptuneLogo } from "@/components/neptune-logo";
+import { Mail, FileText, ListChecks, Search, MessageSquare, Sparkles, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Neptune Copilot — AI Workplace Productivity Hub" },
-      { name: "description", content: "Your AI teammate for work. Draft emails, summarize meetings, plan your week, and research topics — all in one place." },
-      { property: "og:title", content: "Neptune Copilot" },
+      { title: "Neptune — AI Workplace Productivity Hub" },
+      { name: "description", content: "Neptune is your AI teammate for work. Draft emails, summarize meetings, plan your week, and research — all in one clean workspace." },
+      { property: "og:title", content: "Neptune — AI Workplace Productivity Hub" },
       { property: "og:description", content: "Your AI teammate for work." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: CopilotPage,
+  component: Landing,
 });
 
-const CARDS = [
-  {
-    icon: Mail,
-    label: "Draft Email",
-    emoji: "📧",
-    prompt:
-      "Draft a professional follow-up email after a client meeting. The client is interested in CHULUMANCO LUXE luxury perfumes. Keep the tone premium and friendly. Include a call to action.",
-  },
-  {
-    icon: FileText,
-    label: "Meeting Notes",
-    emoji: "📝",
-    prompt:
-      "Summarize these meeting notes into action items with owners and deadlines. Format it as a clean checklist.\n\n[Paste your meeting transcript below]",
-  },
-  {
-    icon: BarChart3,
-    label: "Plan Week",
-    emoji: "📊",
-    prompt:
-      "Help me plan my week as the owner of CHULUMANCO LUXE. I need to focus on marketing, product listings, and customer service. Create a prioritized task list for Mon-Fri.",
-  },
-  {
-    icon: Search,
-    label: "Research Topic",
-    emoji: "🔍",
-    prompt:
-      "Research the latest trends in luxury perfumes and smartwatches for 2026. Give me 5 key insights I can use for marketing.",
-  },
+const features = [
+  { icon: Mail, title: "Smart Email Generator" },
+  { icon: FileText, title: "Meeting Notes Summarizer" },
+  { icon: ListChecks, title: "AI Task Planner" },
+  { icon: Search, title: "AI Research Assistant" },
+  { icon: MessageSquare, title: "AI Chatbot" },
 ];
 
-const INTEGRATIONS = ["Gmail", "Slack", "Google Calendar", "Notion"];
-
-function CopilotPage() {
-  const [prompt, setPrompt] = useState<string | undefined>();
-  const [key, setKey] = useState<string | undefined>();
-
-  const trigger = (p: string) => {
-    setPrompt(p);
-    setKey(`${Date.now()}-${p.slice(0, 8)}`);
-  };
-
-  const empty = (
-    <div className="pt-8 pb-4 text-center">
-      <div className="mx-auto mb-4 h-14 w-14 rounded-2xl gradient-brand flex items-center justify-center shadow-lg">
-        <Sparkles className="h-7 w-7 text-white" />
-      </div>
-      <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-        <span className="gradient-text">Neptune Copilot</span>
-      </h1>
-      <p className="mt-2 text-muted-foreground">Your AI teammate for work. Ask me anything.</p>
-
-      <div className="mt-6 inline-flex items-center gap-2 rounded-full glass-card px-4 py-1.5 text-xs">
-        <Clock className="h-3.5 w-3.5 text-primary" />
-        <span>You saved <b>2.5 hours</b> this week with AI</span>
-      </div>
-
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl mx-auto">
-        {CARDS.map((c) => (
-          <button
-            key={c.label}
-            onClick={() => trigger(c.prompt)}
-            className={cn(
-              "group relative glass-card p-4 text-left transition-all",
-              "hover:-translate-y-0.5 hover:border-primary hover:shadow-lg",
-            )}
-          >
-            <div className="absolute top-3 right-3 opacity-60 group-hover:opacity-100">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-            </div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-xl">{c.emoji}</span>
-              <span className="font-medium text-sm">{c.label}</span>
-            </div>
-            <p className="text-xs text-muted-foreground line-clamp-2">{c.prompt}</p>
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
-        <span>Connects with</span>
-        {INTEGRATIONS.map((i) => (
-          <span key={i} className="rounded-full border px-2.5 py-1 bg-background/50">
-            {i}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-
-
+function Landing() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) navigate({ to: "/dashboard" });
+    });
+  }, [navigate]);
 
   return (
-    <AppShell title="Copilot">
-      <div className="h-[calc(100vh-3.5rem-2.75rem)]">
-        <AiPanel
-          mode="chat"
-          emptyState={empty}
-          initialPrompt={prompt}
-          autoSubmitKey={key}
-        />
-      </div>
-    </AppShell>
+    <div className="min-h-screen bg-background">
+      <header className="sticky top-0 z-30 border-b bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto max-w-6xl flex items-center justify-between px-6 h-14">
+          <Link to="/" className="flex items-center gap-2">
+            <NeptuneLogo size={28} />
+            <span className="font-semibold tracking-tight">Neptune</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <Link to="/auth"><Button variant="ghost" size="sm">Sign in</Button></Link>
+            <Link to="/auth"><Button size="sm" className="gradient-brand text-white">Get started</Button></Link>
+          </div>
+        </div>
+      </header>
+      <main>
+        <section className="mx-auto max-w-4xl px-6 pt-24 pb-16 text-center">
+          <div className="inline-flex items-center gap-1.5 rounded-full border bg-secondary/50 px-3 py-1 text-xs mb-6">
+            <Sparkles className="h-3 w-3 text-primary" /> AI Workplace Productivity
+          </div>
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
+            Your AI teammate <br className="hidden md:block" />for work that matters
+          </h1>
+          <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
+            Draft emails, summarize meetings, plan your week, and research topics — all in one clean, secure workspace for you and your team.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link to="/auth">
+              <Button size="lg" className="gradient-brand text-white">
+                Start free <ArrowRight className="h-4 w-4 ml-1" />
+              </Button>
+            </Link>
+            <Link to="/auth"><Button size="lg" variant="outline">Sign in</Button></Link>
+          </div>
+        </section>
+        <section className="mx-auto max-w-5xl px-6 pb-24">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {features.map((f) => (
+              <div key={f.title} className="glass-card p-4 text-center">
+                <f.icon className="h-5 w-5 text-primary mx-auto mb-2" />
+                <p className="text-xs font-medium">{f.title}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+      <footer className="border-t px-6 py-6 text-center text-xs text-muted-foreground">
+        AI outputs may be inaccurate. Review before sharing. Neptune uses responsible AI practices — no training on your data.
+      </footer>
+    </div>
   );
 }
