@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { ArrowUp, Copy, Sparkles, Square, Pencil, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { creditsStore, useCredits } from "@/lib/credits-store";
+import { Markdown, stripMarkdown } from "@/components/markdown";
 
 type Props = {
   mode?: "chat" | "email" | "meeting" | "planner" | "research";
