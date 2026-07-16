@@ -17,6 +17,7 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedBillingRouteImport } from './routes/_authenticated/billing'
 import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
+import { Route as AuthenticatedWorkspaceIndexRouteImport } from './routes/_authenticated/workspace.index'
 import { Route as AuthenticatedToolsResearchRouteImport } from './routes/_authenticated/tools.research'
 import { Route as AuthenticatedToolsPlannerRouteImport } from './routes/_authenticated/tools.planner'
 import { Route as AuthenticatedToolsMeetingRouteImport } from './routes/_authenticated/tools.meeting'
@@ -62,6 +63,12 @@ const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedWorkspaceIndexRoute =
+  AuthenticatedWorkspaceIndexRouteImport.update({
+    id: '/workspace/',
+    path: '/workspace/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedToolsResearchRoute =
   AuthenticatedToolsResearchRouteImport.update({
     id: '/tools/research',
@@ -104,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/tools/meeting': typeof AuthenticatedToolsMeetingRoute
   '/tools/planner': typeof AuthenticatedToolsPlannerRoute
   '/tools/research': typeof AuthenticatedToolsResearchRoute
+  '/workspace/': typeof AuthenticatedWorkspaceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +126,7 @@ export interface FileRoutesByTo {
   '/tools/meeting': typeof AuthenticatedToolsMeetingRoute
   '/tools/planner': typeof AuthenticatedToolsPlannerRoute
   '/tools/research': typeof AuthenticatedToolsResearchRoute
+  '/workspace': typeof AuthenticatedWorkspaceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +143,7 @@ export interface FileRoutesById {
   '/_authenticated/tools/meeting': typeof AuthenticatedToolsMeetingRoute
   '/_authenticated/tools/planner': typeof AuthenticatedToolsPlannerRoute
   '/_authenticated/tools/research': typeof AuthenticatedToolsResearchRoute
+  '/_authenticated/workspace/': typeof AuthenticatedWorkspaceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/tools/meeting'
     | '/tools/planner'
     | '/tools/research'
+    | '/workspace/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/tools/meeting'
     | '/tools/planner'
     | '/tools/research'
+    | '/workspace'
   id:
     | '__root__'
     | '/'
@@ -179,6 +191,7 @@ export interface FileRouteTypes {
     | '/_authenticated/tools/meeting'
     | '/_authenticated/tools/planner'
     | '/_authenticated/tools/research'
+    | '/_authenticated/workspace/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/workspace/': {
+      id: '/_authenticated/workspace/'
+      path: '/workspace'
+      fullPath: '/workspace/'
+      preLoaderRoute: typeof AuthenticatedWorkspaceIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tools/research': {
       id: '/_authenticated/tools/research'
       path: '/tools/research'
@@ -294,6 +314,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedToolsMeetingRoute: typeof AuthenticatedToolsMeetingRoute
   AuthenticatedToolsPlannerRoute: typeof AuthenticatedToolsPlannerRoute
   AuthenticatedToolsResearchRoute: typeof AuthenticatedToolsResearchRoute
+  AuthenticatedWorkspaceIndexRoute: typeof AuthenticatedWorkspaceIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -306,6 +327,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedToolsMeetingRoute: AuthenticatedToolsMeetingRoute,
   AuthenticatedToolsPlannerRoute: AuthenticatedToolsPlannerRoute,
   AuthenticatedToolsResearchRoute: AuthenticatedToolsResearchRoute,
+  AuthenticatedWorkspaceIndexRoute: AuthenticatedWorkspaceIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
