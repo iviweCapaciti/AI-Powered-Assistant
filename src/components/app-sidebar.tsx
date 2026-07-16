@@ -121,3 +121,29 @@ export function AppSidebar() {
     </Sidebar>
   );
 }
+
+function RecentActivity() {
+  const fn = useServerFn(listRecentActivity);
+  const { data } = useQuery({ queryKey: ["recent-activity"], queryFn: () => fn(), staleTime: 15_000 });
+  const items = (data ?? []) as Array<{ id: string; title: string; tool: string }>;
+  return (
+    <SidebarGroup>
+      <SidebarGroupLabel>Recent Activity</SidebarGroupLabel>
+      <SidebarGroupContent>
+        {items.length === 0 ? (
+          <p className="px-3 py-2 text-[11px] text-muted-foreground leading-relaxed">
+            No recent activity yet. Start by using Email Generator or Meeting Notes.
+          </p>
+        ) : (
+          <ul className="space-y-1 px-2 text-xs text-muted-foreground">
+            {items.slice(0, 5).map((r) => (
+              <li key={r.id} className="truncate rounded-md px-2 py-1.5 hover:bg-sidebar-accent transition-colors cursor-pointer">
+                {r.title}
+              </li>
+            ))}
+          </ul>
+        )}
+      </SidebarGroupContent>
+    </SidebarGroup>
+  );
+}
