@@ -86,7 +86,7 @@ export function AiPanel({
   };
 
   const copy = (text: string) => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(stripMarkdown(text));
     toast.success("Copied to clipboard");
   };
 
